@@ -79,7 +79,7 @@ export class AuthService {
   private generateTokens(userId: string, email: string, role: string): TokenResponseDto {
     const payload = { sub: userId, email, role };
     
-    const access_token = this.jwtService.sign(payload, {
+    const token = this.jwtService.sign(payload, {
       expiresIn: '15m',
     });
     
@@ -88,7 +88,7 @@ export class AuthService {
     });
 
     return {
-      access_token,
+      token,
       refresh_token,
       expiresIn: 900, 
     };
@@ -112,7 +112,7 @@ export class AuthService {
       return {
         statusCode: 200,
         message: 'Login successful',
-        access_token: tokens.access_token,
+        token: tokens.token,
         refresh_token: tokens.refresh_token,
         user: {
           _id: user._id.toString(),
@@ -166,7 +166,7 @@ export class AuthService {
       return {
         statusCode: 201,
         message: 'User created successfully. Please verify your email.',
-        access_token: tokens.access_token,
+        token: tokens.token,
         refresh_token: tokens.refresh_token,
         user: {
           _id: user._id.toString(),

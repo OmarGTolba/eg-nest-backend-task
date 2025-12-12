@@ -13,9 +13,9 @@ async function bootstrap() {
   const logger = new Logger('Bootstrap');
 
   const frontendUrl =
-    configService.get<string>('FRONTEND_URL') || 'http://localhost:5173';
+    configService.get<string>('FRONTEND_URL') || 'http://localhost:5174' || 'http://localhost:5173';
   app.enableCors({
-    origin: [frontendUrl, 'http://localhost:3000'],
+    origin: [frontendUrl, 'http://localhost:5174'],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
@@ -62,16 +62,16 @@ async function bootstrap() {
       },
       'JWT-auth',
     )
-    .build();
+    .build(); 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/docs', app, document);
 
   const port = configService.get<number>('PORT') || 3000;
   await app.listen(port);
 
-  logger.log(`🚀 Server running on http://localhost:${port}`);
-  logger.log(`📚 Swagger docs available on http://localhost:${port}/api/docs`);
-  logger.log(`🌍 Environment: ${configService.get<string>('NODE_ENV')}`);
+  logger.log(` Server running on http://localhost:${port}`);
+  logger.log(` Swagger docs available on http://localhost:${port}/api/docs`);
+  logger.log(` Environment: ${configService.get<string>('NODE_ENV')}`);
 }
 
 bootstrap().catch((error) => {

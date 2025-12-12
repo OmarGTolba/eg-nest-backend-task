@@ -18,6 +18,7 @@ import { UserResponseDto, PaginatedUsersResponseDto } from './dto/user-response.
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { GetUser } from 'src/auth/decorators/user.decorator';
 
 @ApiTags('users')
 @Controller('users')
@@ -41,12 +42,28 @@ export class UsersController {
     return this.usersService.findAll(query);
   }
 
+
+@UseGuards(JwtAuthGuard)
+@ApiBearerAuth('JWT-auth')
+@Get('profile')
+@ApiOperation({ summary: 'Get the currently authenticated user' })
+@ApiResponse({ status: 200, description: 'User retrieved successfully', type: UserResponseDto })
+getProfile(@GetUser() user: any): Promise<UserResponseDto> {  
+  return this.usersService.findOne(user._id);
+}
+
+
+
+
   @Get(':id')
   @ApiOperation({ summary: 'Get a user by ID' })
   @ApiResponse({ status: 200, description: 'User found', type: UserResponseDto })
   findOne(@Param('id') id: string): Promise<UserResponseDto> {
     return this.usersService.findOne(id);
   }
+
+
+
 
   @Patch(':id')
   @ApiOperation({ summary: 'Update a user' })

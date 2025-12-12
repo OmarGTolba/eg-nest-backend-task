@@ -9,7 +9,7 @@ export class AuthResponseDto {
   message: string;
 
   @ApiProperty()
-  access_token: string;
+  token: string;
 
   @ApiProperty({ required: false })
   refresh_token?: string;
@@ -27,7 +27,7 @@ export class AuthResponseDto {
 
 export class TokenResponseDto {
   @ApiProperty()
-  access_token: string;
+  token: string;
 
   @ApiProperty()
   refresh_token: string;
