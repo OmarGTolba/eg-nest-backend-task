@@ -1,16 +1,14 @@
 import {
   Injectable,
-  NotFoundException,
   ConflictException,
   Logger,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 import { UserResponseDto, PaginatedUsersResponseDto } from './dto/user-response.dto';
 import * as bcrypt from 'bcryptjs';
 import { UserRepository } from './repositories/user.repository';
-import { UserDocument } from './entities/user.entity';
+import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 
 @Injectable()
 export class UsersService {

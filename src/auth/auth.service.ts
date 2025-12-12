@@ -7,7 +7,6 @@ import {
   Logger,
   ForbiddenException,
 } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { UsersService } from '../users/users.service';
 import { UserRepository } from '../users/repositories/user.repository';
@@ -29,7 +28,6 @@ export class AuthService {
     private readonly usersService: UsersService,
     private readonly userRepository: UserRepository,
     private readonly jwtService: JwtService,
-    private readonly configService: ConfigService,
     private readonly eventEmitter: EventEmitter2,
   ) {}
 
