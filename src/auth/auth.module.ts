@@ -9,8 +9,6 @@ import { AuthController } from './auth.controller';
 import { EmailService } from 'src/common/email.service';
 
 @Module({
-
-  
   imports: [
     UsersModule,
     PassportModule,
@@ -19,12 +17,12 @@ import { EmailService } from 'src/common/email.service';
       inject: [ConfigService],
       useFactory: async (cs: ConfigService) => ({
         secret: cs.get('JWT_SECRET') || 'super-secret-change-in-prod',
-        signOptions: { expiresIn: '7d' },
+        signOptions: { expiresIn: '15m' }, 
       }),
     }),
   ],
-  providers: [AuthService, JwtStrategy,EmailService],
+  providers: [AuthService, JwtStrategy],
   controllers: [AuthController],
-  exports: [AuthService,EmailService],
+  exports: [AuthService],
 })
 export class AuthModule {}
